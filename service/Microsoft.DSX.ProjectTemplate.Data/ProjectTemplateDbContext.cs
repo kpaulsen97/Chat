@@ -21,6 +21,8 @@ namespace Microsoft.DSX.ProjectTemplate.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<UserMessages> UserMessages { get; set; }
 
         public override int SaveChanges()
         {

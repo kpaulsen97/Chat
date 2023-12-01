@@ -4,6 +4,7 @@ using Microsoft.DSX.ProjectTemplate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Microsoft.DSX.ProjectTemplate.Data.Migrations
 {
     [DbContext(typeof(ProjectTemplateDbContext))]
-    partial class ProjectTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231201133327_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,33 +112,6 @@ namespace Microsoft.DSX.ProjectTemplate.Data.Migrations
                     b.ToTable("Libraries");
                 });
 
-            modelBuilder.Entity("Microsoft.DSX.ProjectTemplate.Data.Models.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MessageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SenderId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Messages");
-                });
-
             modelBuilder.Entity("Microsoft.DSX.ProjectTemplate.Data.Models.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -231,31 +206,6 @@ namespace Microsoft.DSX.ProjectTemplate.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Microsoft.DSX.ProjectTemplate.Data.Models.UserMessages", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserMessages");
-                });
-
             modelBuilder.Entity("Microsoft.DSX.ProjectTemplate.Data.Models.Group", b =>
                 {
                     b.HasOne("Microsoft.DSX.ProjectTemplate.Data.Models.Library", "DefaultLibrary")
@@ -307,17 +257,6 @@ namespace Microsoft.DSX.ProjectTemplate.Data.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("Microsoft.DSX.ProjectTemplate.Data.Models.Message", b =>
-                {
-                    b.HasOne("Microsoft.DSX.ProjectTemplate.Data.Models.UserMessages", "Sender")
-                        .WithMany("Messages")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("Microsoft.DSX.ProjectTemplate.Data.Models.Project", b =>
                 {
                     b.HasOne("Microsoft.DSX.ProjectTemplate.Data.Models.Group", "Group")
@@ -349,11 +288,6 @@ namespace Microsoft.DSX.ProjectTemplate.Data.Migrations
             modelBuilder.Entity("Microsoft.DSX.ProjectTemplate.Data.Models.Group", b =>
                 {
                     b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("Microsoft.DSX.ProjectTemplate.Data.Models.UserMessages", b =>
-                {
-                    b.Navigation("Messages");
                 });
 #pragma warning restore 612, 618
         }
